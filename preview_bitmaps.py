@@ -41,7 +41,7 @@ def preview_bitmaps(fps, bitmaps):
 
 
 if __name__ == "__main__":
-    with open("bitmaps.pkl", "rb") as f:
+    with open("res/bitmaps.pkl", "rb") as f:
         fps, bitmaps = pickle.load(f)
     clear_console()
     preview_bitmaps(fps, bitmaps)

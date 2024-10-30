@@ -70,16 +70,16 @@ def video_to_bitmaps(
 
 
 if __name__ == "__main__":
-    video_path = "bad_apple.mp4"
+    video_path = "res/bad_apple.mp4"
     target_width = 16
     target_fps = 24.0
 
     try:
         fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)
 
-        with open("bitmaps.pkl", "wb") as f:
+        with open("res/bitmaps.pkl", "wb") as f:
             pickle.dump((fps, bitmaps), f)
-        print("已保存转换结果为 'bitmaps.pkl'")
+        print("已保存到 'bitmaps.pkl'")
 
     except IOError as e:
         print(e)
