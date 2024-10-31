@@ -5,6 +5,7 @@ import pickle
 from typing import List
 import numpy as np
 
+
 def clear_console_ansi() -> None:
     sys.stdout.write("\033[H")
     sys.stdout.flush()
