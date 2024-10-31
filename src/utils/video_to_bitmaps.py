@@ -72,7 +72,7 @@ def video_to_bitmaps(
 if __name__ == "__main__":
     video_path = "res/bad_apple.mp4"
     target_width = 16
-    target_fps = 24.0
+    target_fps = 30.0
 
     try:
         fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)

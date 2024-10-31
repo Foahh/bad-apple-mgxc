@@ -2,21 +2,22 @@ import os
 import sys
 import time
 import pickle
+from typing import List
+import numpy as np
 
-
-def clear_console_ansi():
+def clear_console_ansi() -> None:
     sys.stdout.write("\033[H")
     sys.stdout.flush()
 
 
-def clear_console():
+def clear_console() -> None:
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
 
 
-def bitmap_to_string(bitmap):
+def bitmap_to_string(bitmap: List[np.ndarray]) -> None:
     ON = "-"
     OFF = " "
 
@@ -27,7 +28,7 @@ def bitmap_to_string(bitmap):
     return "\n".join(lines)
 
 
-def preview_bitmaps(fps, bitmaps):
+def preview_bitmaps(fps: float, bitmaps: List[np.ndarray]) -> None:
     frame_duration = 1 / fps
 
     try:
