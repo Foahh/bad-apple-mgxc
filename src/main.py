@@ -1,6 +1,6 @@
 from typing import List
 from utils.bitmaps_to_chart import bitmaps_to_chart
-from utils.event_primitive import Beat, BPM, Event
+from utils.event_primitive import Event
 from utils.video_to_bitmaps import video_to_bitmaps
 from utils.note_primitive import Damage, Tap, Note
 
