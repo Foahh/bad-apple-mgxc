@@ -128,4 +128,4 @@ cython_debug/
 # PyCharm
 .idea/
 
-bitmaps.pkl
+result.ugc

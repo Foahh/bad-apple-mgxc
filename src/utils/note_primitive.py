@@ -1,29 +1,34 @@
-class Tap:  # red
+class Note:
     def __init__(self, tick: int, lane: int, width: int) -> None:
         self.tick: int = tick
         self.lane: int = lane
         self.width: int = width
 
     def __str__(self) -> str:
+        raise NotImplementedError
+
+
+class Tap(Note):  # red
+    def __str__(self) -> str:
         return f"t\tN\tN\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0"
 
 
-class ExTap(Tap):  # yellow
+class ExTap(Note):  # yellow
     def __str__(self) -> str:
         return f"e\tN\tU\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0"
 
 
-class Flick(Tap):  # cyan
+class Flick(Note):  # cyan
     def __str__(self) -> str:
         return f"f\tN\tA\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0"
 
 
-class Damage(Tap):  # dark blue
+class Damage(Note):  # dark blue
     def __str__(self) -> str:
         return f"d\tN\tN\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0"
 
 
-class Hold(Tap):  # orange
+class Hold(Note):  # orange
     def __str__(self) -> str:
         return (
             f"h\tBG\tN\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0\n"
@@ -31,7 +36,7 @@ class Hold(Tap):  # orange
         )
 
 
-class Slide(Tap):  # blue
+class Slide(Note):  # blue
     def __str__(self) -> str:
         return (
             f"s\tBG\tN\tN\t{self.tick}\t{self.lane}\t{self.width}\t8\t0\t0\n"
@@ -39,7 +44,7 @@ class Slide(Tap):  # blue
         )
 
 
-class Crush(Damage):  # purple
+class Crush(Note):  # purple
     def __str__(self) -> str:
         return (
             f"C\tBG\tN\tAT\t{self.tick}\t{self.lane}\t{self.width}\t0\t0\t35\n"

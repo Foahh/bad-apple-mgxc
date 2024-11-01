@@ -1,9 +1,10 @@
 import os
 import sys
 import time
-import pickle
 from typing import List
 import numpy as np
+
+from utils.video_to_bitmaps import video_to_bitmaps
 
 
 def clear_console_ansi() -> None:
@@ -43,7 +44,10 @@ def preview_bitmaps(fps: float, bitmaps: List[np.ndarray]) -> None:
 
 
 if __name__ == "__main__":
-    with open("res/bitmaps.pkl", "rb") as f:
-        fps, bitmaps = pickle.load(f)
+    video_path = "res/bad_apple.mp4"
+    target_width = 16
+    target_fps = 30.0
+    fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)
+
     clear_console()
     preview_bitmaps(fps, bitmaps)

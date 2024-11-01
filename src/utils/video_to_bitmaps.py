@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from typing import List, Tuple
 from tqdm import tqdm
-import pickle
 
 
 def video_to_bitmaps(
@@ -67,19 +66,3 @@ def video_to_bitmaps(
     print(f"转换结果：{len(bitmaps)} 帧，实际 {actual_fps:.2f} fps")
 
     return actual_fps, bitmaps
-
-
-if __name__ == "__main__":
-    video_path = "res/bad_apple.mp4"
-    target_width = 16
-    target_fps = 30.0
-
-    try:
-        fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)
-
-        with open("res/bitmaps.pkl", "wb") as f:
-            pickle.dump((fps, bitmaps), f)
-        print("已保存到 'bitmaps.pkl'")
-
-    except IOError as e:
-        print(e)
