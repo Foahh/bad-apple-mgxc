@@ -23,6 +23,7 @@ class BPM(Event):
     def __str__(self):
         return f"BPM\t{self.tick}\t{self.bpm:.5f}"
 
+
 class Beat(Event):
     def __init__(self, bar: int, numerator: int, denominator: int):
         self.bar: int = bar
