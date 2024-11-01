@@ -18,8 +18,8 @@ SPEED_MIN = 0.0
 def bitmaps_to_chart(
     fps: float,
     bitmaps: List[np.ndarray],
-    on: Note,
-    off: Note,
+    on: Note | None,
+    off: Note | None,
     frame_start: int = -1,
     frame_end: int = -1,
 ) -> tuple[List[Note], List[Event]]:
@@ -41,7 +41,10 @@ def bitmaps_to_chart(
         for j, row in enumerate(bitmap):
             time = base_time + j * INTERVAL
             for k, bit in enumerate(row):
-                notes.append(on(time, k, 1) if bit else off(time, k, 1))
+                if bit:
+                    notes.append(on(time, k, 1) if on else None)
+                else:
+                    notes.append(off(time, k, 1) if off else None)
 
         events.append(TIL(time + INTERVAL, SPEED_MAX))
         events.append(TIL(time + 2 * INTERVAL, SPEED_MIN))
