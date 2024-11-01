@@ -1,36 +1,47 @@
 from typing import List
-from utils.bitmaps_to_notes import bitmaps_to_notes
+from utils.bitmaps_to_chart import bitmaps_to_chart
 from utils.event_primitive import Beat, BPM, Event
 from utils.video_to_bitmaps import video_to_bitmaps
 from utils.note_primitive import Damage, Tap, Note
 
 
-def write_chart(events: List[Event], notes: List[Note], path: str) -> None:
-    with open("res/template.mgxc", "r", encoding="utf-8") as f:
-        template = f.read().strip().split("\n")
-
+def write_chart(
+    template: str, notes: List[Note], events: List[Event], path: str
+) -> None:
     with open(path, "w", encoding="utf-8", newline="\n") as f:
-        f.write("\n".join(template))
+        f.write(template)
         f.write("\n")
+
+        f.writelines("BEGIN\tHEADER\n")
         f.write("\n".join([str(event) for event in events]))
         f.write("\n")
 
-        f.writelines("BEGIN\tNOTES")
-        f.write("\n")
+        f.writelines("BEGIN\tNOTES\n")
         f.write("\n".join([str(note) for note in notes]))
         f.write("\n")
+
+
+def format(template: str, parameter: dict) -> str:
+    for key, value in parameter.items():
+        template = template.replace("{{" + key + "}}", value)
+        return template
 
 
 if __name__ == "__main__":
     video_path = "res/bad_apple.mp4"
     target_width = 16
     target_fps = 30.0
+    result = video_to_bitmaps(video_path, target_width, target_fps)
 
-    fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)
-    default_events = [Beat(0, 4, 4), BPM(0, fps * 60)]
+    with open("res/template.mgxc", "r", encoding="utf-8") as f:
+        template = f.read()
 
-    notes, events = bitmaps_to_notes(bitmaps, Damage, Tap, 600)
-    write_chart(default_events + events, notes, "out/bad_apple_partial.mgxc")
+    chart = bitmaps_to_chart(*result, Damage, Tap)
+    header = format(template, {"INDEX": "FULL"})
+    write_chart(header, *chart, "out/bad_apple_full.mgxc")
 
-    notes, events = bitmaps_to_notes(bitmaps, Damage, Tap)
-    write_chart(default_events + events, notes, "out/bad_apple_full.mgxc")
+    size = len(result[1]) // 15
+    for i in range(15):
+        header = format(template, {"INDEX": str(i)})
+        chart = bitmaps_to_chart(*result, Damage, Tap, i * size, (i + 1) * size)
+        write_chart(header, *chart, f"out/bad_apple_{i + 1:02d}.mgxc")
