@@ -2,7 +2,7 @@ from typing import List
 from utils.bitmaps_to_chart import bitmaps_to_chart
 from utils.event_primitive import Event
 from utils.video_to_bitmaps import video_to_bitmaps
-from utils.note_primitive import Damage, Tap, Note
+from utils.note_primitive import Damage, Tap, Note, ExTap
 
 
 def write_chart(
@@ -36,12 +36,13 @@ if __name__ == "__main__":
     with open("res/template.mgxc", "r", encoding="utf-8") as f:
         template = f.read()
 
-    chart = bitmaps_to_chart(*result, Damage, Tap)
+    chart = bitmaps_to_chart(*result, ExTap, Tap)
     header = format(template, {"INDEX": "FULL"})
     write_chart(header, *chart, "out/bad_apple_full.mgxc")
 
     size = len(result[1]) // 15
+    print(f"切片大小：{size}")
     for i in range(15):
         header = format(template, {"INDEX": f"{i + 1:02d}"})
-        chart = bitmaps_to_chart(*result, Damage, Tap, i * size, (i + 1) * size)
+        chart = bitmaps_to_chart(*result, ExTap, Tap, i * size, (i + 1) * size)
         write_chart(header, *chart, f"out/bad_apple_{i + 1:02d}.mgxc")
