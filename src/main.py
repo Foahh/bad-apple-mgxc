@@ -29,7 +29,7 @@ if __name__ == "__main__":
     fps, bitmaps = video_to_bitmaps(video_path, target_width, target_fps)
     default_events = [Beat(0, 4, 4), BPM(0, fps * 60)]
 
-    notes, events = bitmaps_to_mgxc(bitmaps, Damage, Tap, 210)
+    notes, events = bitmaps_to_mgxc(bitmaps, Damage, Tap, 600)
     write_chart(default_events + events, notes, "out/bad_apple_partial.mgxc")
 
     notes, events = bitmaps_to_mgxc(bitmaps, Damage, Tap)
