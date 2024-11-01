@@ -42,6 +42,6 @@ if __name__ == "__main__":
 
     size = len(result[1]) // 15
     for i in range(15):
-        header = format(template, {"INDEX": str(i)})
+        header = format(template, {"INDEX": f"{i + 1:02d}"})
         chart = bitmaps_to_chart(*result, Damage, Tap, i * size, (i + 1) * size)
         write_chart(header, *chart, f"out/bad_apple_{i + 1:02d}.mgxc")
