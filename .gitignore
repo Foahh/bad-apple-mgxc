@@ -128,6 +128,5 @@ cython_debug/
 # PyCharm
 .idea/
 
-result.ugc
-
+*.ugc
 out/*.mgxc
